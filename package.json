@@ -1,0 +1,24 @@
+{
+  "name": "@sujian/cli",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "author": "hens",
+  "license": "MIT",
+  "keywords": [],
+  "bin": {
+    "h-cli": "bin/cli.js"
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@sujian/eslint-config-typescript": "^0.0.22",
+    "cac": "^6.7.14",
+    "eslint": "^8.38.0",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
+  }
+}
