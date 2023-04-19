@@ -6,4 +6,5 @@ export default defineConfig({
   dts: true,
   shims: true,
   clean: true,
+  external: ['cac', 'fs-extra']
 })

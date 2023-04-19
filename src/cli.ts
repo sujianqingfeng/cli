@@ -1,12 +1,12 @@
 import { cac } from 'cac'
+import { setupEslint } from './setups/eslint'
 
 const cli = cac('cli').help()
 
 cli
-  .command('koa', 'create koa project')
-  .alias('k')
+  .command('setup-eslint [name]', 'setup eslint')
   .action((name) => {
-    console.log('name:', name)
+    setupEslint({ name })
   })
 
 cli.parse()
