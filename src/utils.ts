@@ -1,6 +1,8 @@
 import { exec as processExec } from 'node:child_process'
 import chalk from 'chalk'
-import { ensureFile } from 'fs-extra/esm'
+import { pathExists } from 'fs-extra/esm'
+import path from 'node:path/posix'
+import { isFunction } from 'lodash-es'
 
 export const exec = (command: string) => {
   return new Promise<[false, any] | [true, string]>((resolve) => {
@@ -36,8 +38,25 @@ export const installScopeNpmPkg = async (pkg: string, isDev = true) => {
   return isNpmOk
 }
 
-export const checkPkgJson = async () => {
-  return await ensureFile('package.json')
+export const checkPkgJson = async (rootDir: string) => {
+  return await pathExists(path.join(rootDir, 'package.json'))
+}
+
+
+export function createTryWrapper<R = any, T extends any[] = any[]>(
+  promiseFn: (...rest: T) => Promise<R>
+) {
+  if (!isFunction(promiseFn)) {
+    throw new Error('createTryWrapper: promiseFn must be a function')
+  }
+  return async (...rest: Parameters<typeof promiseFn>): Promise<[true, R] | [false, any]> => {
+    try {
+      const data = await promiseFn(...rest)
+      return [true, data]
+    } catch (error) {
+      return [false, error]
+    }
+  }
 }
 
 export const infoLog = (str: string) => console.log(chalk.gray(str)) 
