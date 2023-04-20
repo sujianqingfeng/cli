@@ -4,6 +4,8 @@ import { pathExists } from 'fs-extra/esm'
 import path from 'node:path/posix'
 import { isFunction } from 'lodash-es'
 
+export const isPlatformWin = () => process.platform === 'win32'
+
 export const exec = (command: string) => {
   return new Promise<[false, any] | [true, string]>((resolve) => {
     processExec(command, (error, stdout, stderr) => {
@@ -41,7 +43,6 @@ export const installScopeNpmPkg = async (pkg: string, isDev = true) => {
 export const checkPkgJson = async (rootDir: string) => {
   return await pathExists(path.join(rootDir, 'package.json'))
 }
-
 
 export function createTryWrapper<R = any, T extends any[] = any[]>(
   promiseFn: (...rest: T) => Promise<R>

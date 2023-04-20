@@ -1,5 +1,4 @@
 import { join } from 'path'
-import { ESLINT_NAMES, ESLINT_NPK_MAP, ESLINT_PKG_NAME, NI_PKG_NAME } from '../constants'
 import { checkNpmPkg, checkPkgJson, createTryWrapper, errorLog, infoLog, installGlobalNpmPkg, installScopeNpmPkg } from '../utils'
 import { pathExists, readJSON  } from 'fs-extra/esm'
 import { writeFile } from 'node:fs/promises'
@@ -11,7 +10,6 @@ type EslintSetupOption = {
 }
 
 const RC_FILE = '.eslintrc.json'
-
 const VSCODE_SETTING_CONTENT = {
   'prettier.enable': false,
   'editor.codeActionsOnSave': {
@@ -27,6 +25,19 @@ const VSCODE_SETTING_CONTENT = {
     'json5'
   ]
 }
+const NI_PKG_NAME = '@antfu/ni'
+const ESLINT_PKG_NAME = 'eslint'
+const ESLINT_NPK_MAP = {
+  'vue3-ts': {
+    pkgName: '@sujian/eslint-config-vue3-ts',
+    configName: '@sujian/vue3-ts'
+  },
+  'ts': {
+    pkgName: '@sujian/eslint-config-typescript',
+    configName: '@sujian/typescript'
+  } 
+}
+const ESLINT_NAMES = Object.keys(ESLINT_NPK_MAP)
 
 const toEslintRc = async (rootDir: string, configName: string) => {
   const p = join(rootDir, RC_FILE)

@@ -1,6 +1,6 @@
 import { cac } from 'cac'
-import { setupEslint } from './setups/eslint'
 import { join } from 'path'
+import { setupEslint, setupNvim } from './setups'
 
 const cli = cac('cli').help()
 
@@ -13,6 +13,12 @@ cli
       rootDir = join(rootDir, dir)
     }
     setupEslint({ name, rootDir })
+  })
+
+cli
+  .command('setup-nvim', 'setup nvim')
+  .action(() => {
+    setupNvim()
   })
 
 cli.parse()
