@@ -1,7 +1,8 @@
 import { exec as processExec } from 'node:child_process'
+import path from 'node:path/posix'
+
 import chalk from 'chalk'
 import { pathExists } from 'fs-extra/esm'
-import path from 'node:path/posix'
 import { isFunction } from 'lodash-es'
 
 export const isPlatformWin = () => process.platform === 'win32'
